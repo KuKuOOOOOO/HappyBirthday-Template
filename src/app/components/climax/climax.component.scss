@@ -1,0 +1,293 @@
+.climax-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // Deep Forest Green Gradient — seamlessly extends Section 4's sage green
+  background: linear-gradient(135deg, #91A8A4 0%, #6B8F85 50%, #4A7068 100%);
+  position: relative;
+  overflow: hidden;
+  animation: slideUpFadeIn 1.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+.confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none; // Let clicks pass through
+  z-index: 10000;
+}
+
+// Background Fireflies
+.firefly {
+  position: absolute;
+  bottom: -20px;
+  background-color: var(--creamy-white);
+  border-radius: 50%;
+  box-shadow: 0 0 10px 3px rgba(250, 249, 246, 0.5);
+  opacity: 0;
+  animation-name: floatUp;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(0.8); opacity: 0; }
+  20% { opacity: 0.9; }
+  80% { opacity: 0.6; }
+  100% { transform: translateY(-110vh) scale(1.2); opacity: 0; }
+}
+
+.content-wrapper {
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cta-btn {
+  background-color: var(--creamy-white);
+  color: var(--text-dark);
+  border: none;
+  padding: 18px 40px;
+  border-radius: 50px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  // Intense glow representing a star
+  box-shadow: 0 0 30px rgba(250, 249, 246, 0.3);
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  font-family: inherit;
+
+  &:hover {
+    transform: translateY(-5px) scale(1.05);
+    background-color: #ffffff;
+    box-shadow: 0 0 45px rgba(250, 249, 246, 0.8);
+  }
+}
+
+.pulse {
+  animation: pulse-light 2.5s infinite;
+}
+
+.replay-link {
+  display: inline-block;
+  margin-top: 2rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: color 0.3s ease;
+  user-select: none;
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-out;
+}
+
+// ============== Modal / Polaroid Styles ==============
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  z-index: 10;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 11;
+  width: 85%;
+  max-width: 350px;
+}
+
+// Polaroid Card 3D Setup
+.polaroid {
+  perspective: 1000px;
+  transform: rotate(-3deg);
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); // Bouncy elastic flip
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.polaroid.flipped .flip-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-front, .flip-back {
+  background-color: #ffffff;
+  padding: 12px 12px 60px 12px;
+  border-radius: 4px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+// Front side (Visible first, represents back of physical photo)
+.flip-front {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  .tape {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-2deg);
+    width: 60px;
+    height: 25px;
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(2px);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    z-index: 5;
+  }
+
+  .flip-hint {
+    font-family: 'ZCOOL KuaiLe', sans-serif;
+    font-size: 1.5rem;
+    color: var(--sage-green);
+    margin: 0;
+  }
+}
+
+// Back side (Revealed after flip, represents front of physical photo)
+.flip-back {
+  position: relative;
+  transform: rotateY(180deg);
+}
+
+.photo-frame {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 2px;
+  background-color: var(--mint-green);
+  position: relative;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+  }
+}
+
+// Fallback placeholder (same pattern as Section 3)
+.fallback-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--sage-green);
+  font-weight: bold;
+  font-size: 1.2rem;
+  z-index: 1;
+}
+.fallback-state .fallback-placeholder {
+  z-index: 3;
+}
+
+.caption {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  color: #444;
+  margin: 0;
+  padding-top: 12px;
+  line-height: 1.5;
+}
+
+.close-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.6);
+  border: none;
+  font-size: 1.6rem;
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  z-index: 10;
+  // Generous touch target for mobile
+  padding: 8px 14px;
+  border-radius: 0 4px 0 10px;
+  line-height: 1;
+  transition: background 0.3s ease, color 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.9);
+    color: rgba(0, 0, 0, 0.8);
+  }
+}
+
+// Polaroid Elastic Fly-In (reuses Section 1 curve!)
+.polaroid-fly-in {
+  animation: flyInPolaroid 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+// ============== Animations ==============
+
+@keyframes pulse-light {
+  0% { box-shadow: 0 0 0 0 rgba(250, 249, 246, 0.5); }
+  70% { box-shadow: 0 0 0 20px rgba(250, 249, 246, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(250, 249, 246, 0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes flyInPolaroid {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 100vh) scale(0.5) rotate(-3deg);
+  }
+  60% {
+    opacity: 1;
+  }
+  75% {
+    transform: translate(-50%, calc(-50% - 20px)) scale(1.05) rotate(-3deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(-3deg);
+  }
+}

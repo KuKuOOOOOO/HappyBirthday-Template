@@ -1,0 +1,56 @@
+<div class="climax-container">
+  <!-- Dedicated Confetti Canvas to prevent DOM reflow lag on click -->
+  <canvas #confettiCanvas class="confetti-canvas"></canvas>
+
+  <!-- Glowing Fireflies -->
+  @for (f of fireflies; track $index) {
+    <div class="firefly" 
+         [style.left.%]="f.left" 
+         [style.width.px]="f.size" 
+         [style.height.px]="f.size"
+         [style.animation-duration.s]="f.animationDuration"
+         [style.animation-delay.s]="f.animationDelay">
+    </div>
+  }
+
+  <div class="content-wrapper">
+    <!-- Pulse Animation CTA Button -->
+    <button class="cta-btn pulse" (click)="openModal()">
+      {{ config.buttonText }}
+    </button>
+    <!-- Subtle replay link: only appears after closing Polaroid -->
+    @if (hasSeenModal) {
+      <span class="replay-link fade-in" (click)="replay.emit()">🔄 再看一次</span>
+    }
+  </div>
+
+  <!-- Fullscreen Modal Overlay -->
+  @if (isModalOpen) {
+    <div class="backdrop" (click)="closeModal()"></div>
+    <div class="modal polaroid-fly-in">
+      <div class="polaroid" [class.flipped]="isFlipped" (click)="flipCard()">
+        <button class="close-btn" (click)="closeModal(); $event.stopPropagation()">×</button>
+        
+        <div class="flip-inner">
+          <!-- Default visible face (back of the photo) -->
+          <div class="flip-front">
+            <div class="tape"></div>
+            <p class="flip-hint">翻我看看 ❤️</p>
+          </div>
+          
+          <!-- Revealed face (front of the photo) -->
+          <div class="flip-back">
+            <div class="photo-frame">
+              <img [src]="'assets/images/' + config.polaroidImage" [alt]="config.polaroidCaption" (error)="onImageError($event)" />
+              <!-- Fallback placeholder when image fails -->
+              <div class="fallback-placeholder">
+                <span>📷 照片尚缺</span>
+              </div>
+            </div>
+            <p class="caption">{{ config.polaroidCaption }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

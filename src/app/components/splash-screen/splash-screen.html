@@ -1,0 +1,31 @@
+<div class="splash-container" [class.fade-out]="isFadingOut">
+  @if (isLoading) {
+    <div class="heartbeat-container fade-in">
+      <div class="heart">💝</div>
+      <p class="loading-text">準備您的專屬驚喜中...</p>
+    </div>
+  }
+
+  @if (showPasswordGate) {
+    <div class="password-gate fade-in">
+      <div class="heart">✉️</div>
+      <p class="loading-text" style="margin-bottom: 5px;">{{ hookConfig.message }}</p>
+      <p class="loading-text" style="font-size: 1rem; opacity: 0.6; margin-top: 0;">( 請輸入專屬密碼解鎖 )</p>
+      <form (submit)="verifyPassword($event)" class="password-form" [class.shake]="isError">
+        <input 
+          type="text" 
+          [(ngModel)]="passwordInput" 
+          (ngModelChange)="isError = false"
+          name="password"
+          placeholder="Password" 
+          autocomplete="off"
+          [class.error-input]="isError"
+          autofocus>
+        <button type="submit">{{ hookConfig.envelopeText }}</button>
+        @if (isError) {
+          <span class="error-msg">密碼不正確，請再試一次</span>
+        }
+      </form>
+    </div>
+  }
+</div>

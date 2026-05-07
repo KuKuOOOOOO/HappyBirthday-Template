@@ -1,0 +1,68 @@
+.reveal-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, var(--creamy-white), var(--mint-green));
+  animation: slideUpFadeIn 1.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  text-align: center;
+}
+
+.title {
+  font-size: 5rem;
+  color: var(--sage-green);
+  margin-bottom: 1rem;
+  font-weight: bold; /* Caveat usually looks better with bold weight */
+  font-family: 'Caveat', cursive;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  transform: scale(0);
+  opacity: 0;
+  animation: elasticPop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  animation-delay: 0.2s; /* slight delay after background fade in */
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  margin-bottom: 4rem;
+  font-family: inherit;
+  letter-spacing: 0.05em;
+}
+
+.continue-btn {
+  cursor: pointer;
+  padding: 15px 30px;
+  background-color: var(--sage-green);
+  color: white;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  animation: bounce 2s infinite;
+
+  &:hover {
+    background-color: var(--mint-green);
+    color: var(--text-dark);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-15px); }
+  60% { transform: translateY(-7px); }
+}
+
+@keyframes elasticPop {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.1); opacity: 1; }
+  80% { transform: scale(0.95); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}

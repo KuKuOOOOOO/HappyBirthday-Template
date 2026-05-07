@@ -1,0 +1,34 @@
+<main class="app-container">
+  <!-- Global BGM Audio Element -->
+  <audio #bgmPlayer [src]="bgmPath" loop preload="auto"></audio>
+
+  <!-- Global BGM Toggle Button -->
+  @if (currentStep >= 2) {
+    <button class="bgm-toggle" (click)="toggleMute()" [class.is-playing]="isPlaying && !isMuted">
+      <span class="icon">{{ isMuted ? '🔇' : '🎵' }}</span>
+    </button>
+  }
+  @if (currentStep === 0) {
+    <app-splash-screen (loaded)="onAssetsLoaded()"></app-splash-screen>
+  }
+
+  @if (currentStep === 1) {
+    <app-hook (unlock)="onUnlock()"></app-hook>
+  }
+
+  @if (currentStep === 2) {
+    <app-reveal (next)="onNextStep()"></app-reveal>
+  }
+
+  @if (currentStep === 3) {
+    <app-memory-lane (next)="onNextToMessage()"></app-memory-lane>
+  }
+
+  @if (currentStep === 4) {
+    <app-message (next)="onNextToClimax()"></app-message>
+  }
+  
+  @if (currentStep === 5) {
+    <app-climax (replay)="onReplay()"></app-climax>
+  }
+</main>

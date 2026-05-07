@@ -1,0 +1,44 @@
+:root {
+  --sage-green: #91A8A4;
+  --mint-green: #D8E2DC;
+  --creamy-white: #FAF9F6;
+  --text-dark: #333333;
+  --text-muted: #7D8B84;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Inter', 'Noto Sans TC', sans-serif;
+  background-color: var(--creamy-white);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', 'Playfair Display', sans-serif;
+  margin: 0;
+}
+
+// Global font override for signature (needs to be global to access Google Fonts @font-face)
+.signature {
+  font-family: 'ZCOOL KuaiLe', sans-serif !important;
+}
+
+// Global section transition animation (Sprint B4)
+@keyframes slideUpFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

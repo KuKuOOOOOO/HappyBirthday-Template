@@ -1,0 +1,25 @@
+<div class="memory-lane-container">
+  <div class="hint-text">請向左橫移滑動，回閱我們的點滴 💖 👉</div>
+  
+  <div class="carousel-wrapper" #carousel>
+    @for (item of config; track $index; let idx = $index) {
+      <div class="memory-card polaroid" [ngStyle]="{'transform': 'rotate(' + cardTilts[idx] + 'deg)'}">
+        <div class="image-wrapper">
+          <img [src]="'assets/images/' + item.imagePath" [alt]="item.caption" (error)="onImageError($event)" draggable="false">
+          <!-- Fallback placeholder when image fails -->
+          <div class="fallback-placeholder">
+            <span>📷 照片尚缺</span>
+          </div>
+        </div>
+        <p class="caption">{{ item.caption }}</p>
+      </div>
+    }
+    
+    <!-- End Card to trigger next section -->
+    <div class="memory-card end-card" (click)="goNext()">
+      <div class="circle-btn">
+        <span>繼續閱讀 💌</span>
+      </div>
+    </div>
+  </div>
+</div>

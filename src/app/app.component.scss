@@ -1,0 +1,68 @@
+.app-container {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.temp-reveal-section {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, var(--creamy-white), var(--mint-green));
+  animation: fadeIn 1s ease-in-out;
+}
+
+.celebration-text {
+  font-size: 3rem;
+  color: var(--sage-green);
+  margin-bottom: 1rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* BGM Toggle Button (Global UI) */
+.bgm-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(250, 249, 246, 0.4); // Creamy white with high transparency
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  padding: 0;
+
+  &:hover {
+    background: rgba(250, 249, 246, 0.8);
+    transform: scale(1.05);
+  }
+
+  .icon {
+    font-size: 1.2rem;
+    line-height: 1;
+    display: inline-block;
+  }
+
+  &.is-playing .icon {
+    animation: musicBounce 2s infinite ease-in-out;
+  }
+}
+
+@keyframes musicBounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-3px) scale(1.1); }
+}

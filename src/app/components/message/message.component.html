@@ -1,0 +1,37 @@
+<div class="message-container">
+  <!-- Falling Leaves Effect -->
+  <div class="leaves-container">
+    @for (leaf of leaves; track $index) {
+      <div class="leaf" 
+           [style.left]="leaf.left"
+           [style.animation-delay]="leaf.animationDelay"
+           [style.animation-duration]="leaf.animationDuration"
+           [style.opacity]="leaf.opacity"
+           [style.transform]="'scale(' + leaf.scale + ')'">
+      </div>
+    }
+  </div>
+
+  <div class="letter-wrapper">
+    @for (p of renderedParagraphs; track $index; let idx = $index) {
+      <p class="paragraph" #paragraphEl>
+        {{ p }}
+        <!-- Show cursor only on the active typing paragraph -->
+        @if (currentParagraphIndex === idx && !isTypingFinished) {
+          <span class="cursor">|</span>
+        }
+      </p>
+    }
+    <!-- Handwritten Signature — fades in after typewriter finishes -->
+    @if (isTypingFinished) {
+      <p class="signature">{{ config.signature }}</p>
+    }
+    
+    <!-- Render button only when typing is completely finished -->
+    @if (isTypingFinished) {
+      <div class="continue-container fade-in">
+        <button class="action-btn" (click)="goNext()">準備迎接最後的驚喜 🎁</button>
+      </div>
+    }
+  </div>
+</div>

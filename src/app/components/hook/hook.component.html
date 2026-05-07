@@ -1,0 +1,8 @@
+<div class="hook-container" [class.fade-out]="isOpening">
+  <div class="message">{{ config.message }}</div>
+  <div class="gift-box" (click)="openGift()">
+    <div class="envelope">
+      <span>{{ config.envelopeText }}</span>
+    </div>
+  </div>
+</div>
